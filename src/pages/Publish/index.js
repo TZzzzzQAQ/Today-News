@@ -53,6 +53,9 @@ const Publish = () => {
     const [searchParams] = useSearchParams()
     const [form] = Form.useForm()
     useEffect(() => {
+        if (!searchParams.get('id')) {
+            return
+        }
         (async () => {
             const res = await getArticleDetailByIdAPI(searchParams.get('id'));
             console.log('here', res.data)
@@ -72,7 +75,7 @@ const Publish = () => {
                 title={
                     <Breadcrumb items={[
                         {title: <Link to={'/'}>首页</Link>},
-                        {title: '发布文章'},
+                        {title: `${searchParams.get('id') ? '编辑' : '发布'}文章`},
                     ]}
                     />
                 }
